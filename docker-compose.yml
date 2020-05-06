@@ -1,0 +1,21 @@
+version: '3.3'
+services:
+  nginx:
+    build: ./nginx
+    ports:
+    - "80:80"
+    depends_on: 
+    - app
+  app:
+    container_name: docker-node-mongo
+    restart: always
+    build: ./app
+    ports:
+      - '3001:3000'
+    links:
+      - mongo
+  mongo:
+    container_name: mongo
+    image: mvertes/alpine-mongo:3.6.4-2
+    ports:
+      - '27017:27017'
